@@ -1,0 +1,62 @@
+<div class="contenedor">
+  <header>
+    <h1>{{title}}</h1>
+    <p>{{descripcion}}</p>
+  </header>
+
+  <!-- SECCIÓN 1: ESTADÍSTICAS Y MÉTRICAS -->
+  <section class="estadisticas">
+    <h2>Estadísticas del Mes</h2>
+    <div class="metricas">
+      <div class="tarjeta-metrica">
+        <h3>Ventas Totales</h3>
+        <p class="valor">${{totalVentas}}</p>
+        <p class="detalle">Ingresos generados</p>
+      </div>
+      <div class="tarjeta-metrica">
+        <h3>Productos Vendidos</h3>
+        <p class="valor">{{productosVendidos}}</p>
+        <p class="detalle">Unidades vendidas</p>
+      </div>
+      <div class="tarjeta-metrica">
+        <h3>Ingreso del Mes</h3>
+        <p class="valor">${{ingresoMes}}</p>
+        <p class="detalle">Revenue total</p>
+      </div>
+      <div class="tarjeta-metrica">
+        <h3>Clientes Activos</h3>
+        <p class="valor">{{clientesActivos}}</p>
+        <p class="detalle">Clientes registrados</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: GESTIÓN DE PRODUCTOS -->
+  <section class="productos">
+    <h2>Productos en Venta</h2>
+    <div class="acciones">
+      <input type="text" placeholder="Buscar producto...">
+      <button (click)="agregarProducto()">+ Agregar Producto</button>
+    </div>
+    <div class="lista-productos">
+      @for (producto of productos; track producto.id){
+        <div class="tarjeta-producto">
+          <h3>{{producto.nombre}}</h3>
+          <p><strong>Precio:</strong> ${{producto.precio}}</p>
+          <p><strong>Cantidad:</strong> {{producto.cantidad}} unidades</p>
+          <p><strong>Total:</strong> ${{producto.total}}</p>
+          <button>Editar</button>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Botón de acción adicional -->
+  <div class="acciones-footer">
+    <button class="btn-reportes" (click)="generarReporte()">Generar Reporte</button>
+  </div>
+
+  <footer>
+    <p>© 2024 Sistema de Ventas | Desarrollado por: <strong>{{estudiante}}</strong></p>
+  </footer>
+</div>
