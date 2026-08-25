@@ -1,0 +1,21 @@
+<div class="overlay" (click)="cerrar.emit()">
+  <section class="modal" (click)="$event.stopPropagation()">
+    <header><div><span>FORMULARIO CRUD</span><h2>{{ editando ? 'Editar producto' : 'Nuevo producto' }}</h2></div><button type="button" class="cerrar" (click)="cerrar.emit()">×</button></header>
+    <form (ngSubmit)="guardarFormulario()" #form="ngForm">
+      <label for="nombre">Nombre del producto</label>
+      <input id="nombre" name="nombre" [(ngModel)]="formulario.nombre" placeholder="Ej. Laptop Lenovo" required>
+
+      <div class="grid">
+        <div><label for="categoria">Categoría</label><select id="categoria" name="categoria" [(ngModel)]="formulario.categoria"><option>Tecnología</option><option>Accesorios</option><option>Audio</option><option>Oficina</option><option>Hogar</option></select></div>
+        <div><label for="precio">Precio (S/)</label><input id="precio" name="precio" type="number" min="0" step=".01" [(ngModel)]="formulario.precio" required></div>
+      </div>
+
+      <div class="grid">
+        <div><label for="stock">Stock</label><input id="stock" name="stock" type="number" min="0" [(ngModel)]="formulario.stock" required></div>
+        <div><label for="descripcion">Descripción</label><input id="descripcion" name="descripcion" [(ngModel)]="formulario.descripcion" placeholder="Descripción breve"></div>
+      </div>
+
+      <div class="acciones"><button type="button" class="cancelar" (click)="cerrar.emit()">Cancelar</button><button type="submit" class="guardar" [disabled]="form.invalid">{{ editando ? 'Guardar cambios' : 'Registrar producto' }}</button></div>
+    </form>
+  </section>
+</div>

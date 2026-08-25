@@ -1,0 +1,18 @@
+<div class="tabla-wrap">
+  @if (productos.length) {
+    <table>
+      <thead><tr><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr></thead>
+      <tbody>
+        @for (producto of productos; track producto.id) {
+          <tr>
+            <td><div class="producto"><span class="avatar">{{ producto.nombre.charAt(0) }}</span><div><strong>{{ producto.nombre }}</strong><small>ID #{{ producto.id }}</small></div></div></td>
+            <td><span class="categoria">{{ producto.categoria }}</span></td>
+            <td><strong>{{ producto.precio | currency:'PEN':'symbol':'1.2-2' }}</strong></td>
+            <td><span class="stock" [class.bajo]="producto.stock <= 5">{{ producto.stock }}</span></td>
+            <td><div class="acciones"><button class="editar" (click)="editar.emit(producto)">Editar</button><button class="eliminar" (click)="eliminar.emit(producto.id)">Eliminar</button></div></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else { <div class="vacio">No hay productos registrados.</div> }
+</div>

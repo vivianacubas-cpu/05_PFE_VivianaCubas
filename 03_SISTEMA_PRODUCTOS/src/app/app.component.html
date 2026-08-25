@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+
+<main class="contenedor">
+  <section class="hero">
+    <div class="hero-text">
+      <span class="etiqueta">S03 · CRUD CON ANGULAR</span>
+      <h1>Sistema de <span>Productos</span></h1>
+      <p>Administra tu inventario de manera sencilla. Registra, consulta, edita y elimina productos con datos locales.</p>
+    </div>
+    <button class="btn-nuevo" (click)="nuevoProducto()">+ Nuevo producto</button>
+  </section>
+
+  <section class="resumen">
+    <article class="resumen-card">
+      <span class="numero rosa">{{ productos.length }}</span>
+      <div><strong>Productos</strong><small>registrados</small></div>
+    </article>
+    <article class="resumen-card">
+      <span class="numero morado">{{ stockTotal }}</span>
+      <div><strong>Stock total</strong><small>unidades disponibles</small></div>
+    </article>
+    <article class="resumen-card">
+      <span class="numero coral">{{ valorInventario | currency:'PEN':'symbol':'1.2-2' }}</span>
+      <div><strong>Inventario</strong><small>valor estimado</small></div>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-titulo">
+      <div><span class="mini-etiqueta">INVENTARIO</span><h2>Productos registrados</h2></div>
+      <span class="contador">{{ productos.length }} registros</span>
+    </div>
+
+    <app-producto-lista
+      [productos]="productos"
+      (editar)="editarProducto($event)"
+      (eliminar)="eliminarProducto($event)">
+    </app-producto-lista>
+  </section>
+</main>
+
+@if (formularioAbierto) {
+  <app-producto-formulario
+    [producto]="productoEditar"
+    (guardar)="guardarProducto($event)"
+    (cerrar)="cerrarFormulario()">
+  </app-producto-formulario>
+}
+
+<footer>PinkStock · S03 Sistema de Productos · Angular 19+</footer>

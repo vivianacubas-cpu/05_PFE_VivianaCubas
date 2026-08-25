@@ -1,0 +1,13 @@
+<article class="producto-card">
+  <div class="producto-info">
+    <span class="avatar">{{ producto.nombre.charAt(0) }}</span>
+    <div><strong>{{ producto.nombre }}</strong><small>ID #{{ producto.id }}</small></div>
+  </div>
+  <span class="categoria">{{ producto.categoria }}</span>
+  <strong>{{ producto.precio | currency:'PEN':'symbol':'1.2-2' }}</strong>
+  <span class="stock" [class.bajo]="producto.stock <= 5">{{ producto.stock }} un.</span>
+  <div class="acciones">
+    <button type="button" (click)="editarProducto()">Editar</button>
+    <button type="button" (click)="eliminarProducto()">Eliminar</button>
+  </div>
+</article>
