@@ -1,0 +1,62 @@
+.tarjeta {
+  background: #fff;
+  border: 1px solid #e6d9f2;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(76, 40, 104, .08);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  animation: aparecerTarjeta .6s ease both;
+}
+
+.tarjeta:hover {
+  transform: translateY(-9px) scale(1.01);
+  box-shadow: 0 22px 40px rgba(91, 46, 126, .16);
+  border-color: #cdb0e7;
+}
+
+.tarjeta-destacada { border-color: #b88bdd; box-shadow: 0 14px 32px rgba(118, 55, 163, .13); }
+
+.portada {
+  min-height: 145px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background: linear-gradient(135deg, #eee1f9, #d9c0ee);
+}
+
+.portada > span:first-child { font-size: 56px; transition: transform .3s ease; }
+.tarjeta:hover .portada > span:first-child { transform: scale(1.12) rotate(-4deg); }
+.tarjeta-destacada .portada { background: linear-gradient(135deg, #7134a5, #aa70d5); }
+
+.etiqueta-genero {
+  position: absolute;
+  left: 15px;
+  top: 14px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.82);
+  color: #5f3180;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.contenido { padding: 20px; }
+.fila-superior { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.anio { color: #806a90; font-size: 13px; font-weight: 700; }
+.rating { color: #70399b; font-weight: 900; }
+
+h3 {
+  margin: 12px 0 15px;
+  color: #2f1744;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.mensaje { padding: 11px 12px; border-radius: 13px; font-size: 13px; font-weight: 800; }
+.recomendado { background: #eee0fa; color: #63318c; }
+.normal { background: #f5f1f7; color: #77677f; }
+
+@keyframes aparecerTarjeta {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}

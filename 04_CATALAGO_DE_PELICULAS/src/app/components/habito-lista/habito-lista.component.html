@@ -1,0 +1,11 @@
+<div class="lista">
+  @for (pelicula of habitos; track pelicula.id) {
+    <app-habito-card [habito]="pelicula"></app-habito-card>
+  } @empty {
+    <div class="vacio">
+      <span>🎬</span>
+      <strong>Sin películas registradas</strong>
+      <p>Agrega una película para verla en el catálogo.</p>
+    </div>
+  }
+</div>

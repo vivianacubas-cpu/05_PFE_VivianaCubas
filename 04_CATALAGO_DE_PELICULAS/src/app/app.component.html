@@ -1,0 +1,76 @@
+<app-navbar (navegar)="cambiarVista($event)"></app-navbar>
+
+<main class="contenedor">
+  @if (vista === 'inicio') {
+    <section class="plantilla inicio animar-entrada">
+      <div class="inicio-contenido">
+        <span class="etiqueta">OPCIÓN 2 · ANGULAR</span>
+        <h1>Catálogo de <span>Películas</span></h1>
+        <p class="descripcion">
+          Registra tus películas favoritas y visualízalas en un catálogo dinámico,
+          utilizando los principales conceptos de Angular.
+        </p>
+
+        <div class="acciones">
+          <button class="btn btn-principal" (click)="cambiarVista('registro')">
+            Registrar película
+          </button>
+          <button class="btn btn-secundario" (click)="cambiarVista('catalogo')">
+            Ver catálogo
+          </button>
+        </div>
+      </div>
+
+      <div class="tarjeta-presentacion">
+        <div class="icono-pelicula">🎬</div>
+        <p class="numero-peliculas">{{ peliculas.length }}</p>
+        <h2>Películas registradas</h2>
+        <p>Información almacenada únicamente en memoria.</p>
+      </div>
+    </section>
+  }
+
+  @if (vista === 'registro') {
+    <section class="plantilla animar-entrada">
+      <div class="encabezado-plantilla">
+        <div class="numero-seccion">01</div>
+        <div>
+          <span class="mini-titulo">NUEVO REGISTRO</span>
+          <h2>Registrar película</h2>
+          <p>Completa los campos y agrega una nueva película al catálogo.</p>
+        </div>
+      </div>
+
+      <app-habito-formulario (guardar)="agregarPelicula($event)"></app-habito-formulario>
+
+      <div class="navegacion-inferior">
+        <button class="btn btn-secundario" (click)="cambiarVista('inicio')">← Volver al inicio</button>
+        <button class="btn btn-principal" (click)="cambiarVista('catalogo')">Ver catálogo →</button>
+      </div>
+    </section>
+  }
+
+  @if (vista === 'catalogo') {
+    <section class="plantilla animar-entrada">
+      <div class="encabezado-plantilla">
+        <div class="numero-seccion">02</div>
+        <div>
+          <span class="mini-titulo">COLECCIÓN</span>
+          <h2>Películas registradas</h2>
+          <p>Visualiza todos los registros almacenados temporalmente en memoria.</p>
+        </div>
+      </div>
+
+      <app-habito-lista [habitos]="peliculas"></app-habito-lista>
+
+      <div class="navegacion-inferior">
+        <button class="btn btn-principal" (click)="cambiarVista('registro')">+ Registrar otra película</button>
+        <button class="btn btn-secundario" (click)="cambiarVista('inicio')">← Volver al inicio</button>
+      </div>
+    </section>
+  }
+</main>
+
+<footer>
+  <strong>Catálogo de Películas</strong> · Angular · Datos almacenados en memoria
+</footer>

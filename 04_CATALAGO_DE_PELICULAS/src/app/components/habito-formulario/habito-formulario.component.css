@@ -1,0 +1,60 @@
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  padding: 30px;
+  background: #fbf9ff;
+  border: 1px solid #e8dcf8;
+  border-radius: 24px;
+  animation: aparecerFormulario .7s ease both;
+}
+
+.campo { display: flex; flex-direction: column; gap: 9px; }
+.campo-completo, .aviso, .boton-agregar { grid-column: 1 / -1; }
+
+label {
+  color: #3d205b;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+input, select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9c8eb;
+  background: #fff;
+  color: #321a49;
+  border-radius: 14px;
+  padding: 14px 16px;
+  outline: none;
+  font-size: 15px;
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+input:focus, select:focus {
+  border-color: #7c3fb1;
+  box-shadow: 0 0 0 4px #eee2fa;
+  transform: translateY(-2px);
+}
+
+.aviso {
+  padding: 15px 17px;
+  border-radius: 14px;
+  background: #f0e5fa;
+  color: #68468a;
+  font-size: 13px;
+}
+
+.boton-agregar { justify-self: end; min-width: 200px; }
+.boton-agregar:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+@keyframes aparecerFormulario {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+  .formulario { grid-template-columns: 1fr; padding: 22px; }
+  .campo-completo, .aviso, .boton-agregar { grid-column: auto; }
+  .boton-agregar { justify-self: stretch; }
+}

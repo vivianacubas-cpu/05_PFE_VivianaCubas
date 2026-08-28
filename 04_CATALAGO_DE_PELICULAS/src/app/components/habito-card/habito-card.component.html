@@ -1,0 +1,21 @@
+<article class="tarjeta" [class.tarjeta-destacada]="habito.calificacion >= 8">
+  <div class="portada">
+    <span>🎬</span>
+    <span class="etiqueta-genero">{{ habito.genero }}</span>
+  </div>
+
+  <div class="contenido">
+    <div class="fila-superior">
+      <span class="anio">{{ habito.anio }}</span>
+      <span class="rating">★ {{ habito.calificacion }}</span>
+    </div>
+
+    <h3>{{ habito.titulo }}</h3>
+
+    @if (habito.calificacion >= 8) {
+      <div class="mensaje recomendado">⭐ Muy recomendada</div>
+    } @else {
+      <div class="mensaje normal">🎬 Puedes verla</div>
+    }
+  </div>
+</article>

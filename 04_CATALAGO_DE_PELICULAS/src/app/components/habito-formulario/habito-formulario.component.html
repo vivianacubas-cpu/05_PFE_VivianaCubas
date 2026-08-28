@@ -1,0 +1,59 @@
+<form class="formulario" (submit)="$event.preventDefault()">
+  <div class="campo campo-completo">
+    <label for="titulo">Título de la película</label>
+    <input
+      id="titulo"
+      name="titulo"
+      type="text"
+      placeholder="Ej. Interestelar"
+      [(ngModel)]="nuevaPelicula.titulo"
+    >
+  </div>
+
+  <div class="campo">
+    <label for="genero">Género</label>
+    <select id="genero" name="genero" [(ngModel)]="nuevaPelicula.genero">
+      @for (genero of generos; track genero) {
+        <option [value]="genero">{{ genero }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="campo">
+    <label for="anio">Año</label>
+    <input
+      id="anio"
+      name="anio"
+      type="number"
+      min="1900"
+      max="2030"
+      [(ngModel)]="nuevaPelicula.anio"
+    >
+  </div>
+
+  <div class="campo">
+    <label for="calificacion">Calificación (1-10)</label>
+    <input
+      id="calificacion"
+      name="calificacion"
+      type="number"
+      min="1"
+      max="10"
+      step="0.1"
+      [(ngModel)]="nuevaPelicula.calificacion"
+    >
+  </div>
+
+  <div class="aviso">
+    💜 Los registros se almacenan únicamente en memoria mientras la aplicación está activa.
+  </div>
+
+  <button
+    class="btn btn-principal boton-agregar"
+    type="button"
+    (click)="guardarPelicula()"
+    [disabled]="!formularioValido()"
+  >
+    Agregar película
+  </button>
+</form>
