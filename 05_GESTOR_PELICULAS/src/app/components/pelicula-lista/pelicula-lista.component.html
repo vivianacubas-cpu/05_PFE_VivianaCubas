@@ -1,0 +1,157 @@
+<main class="movie-page">
+  <section class="hero">
+    <div class="hero-content">
+      <span class="tag">ANGULAR · SERVICIOS</span>
+      <h1>🎬 Gestor de <strong>Películas</strong></h1>
+      <p>
+        Administra tu catálogo con un servicio de Angular como fuente única
+        de verdad para compartir la información.
+      </p>
+      <button class="main-btn" type="button" (click)="abrirNuevo()">
+        ＋ Agregar película
+      </button>
+    </div>
+
+    <div class="hero-icon" aria-hidden="true">🎞️</div>
+  </section>
+
+  <section class="toolbar">
+    <div>
+      <span class="mini">CATÁLOGO</span>
+      <h2>Mis películas</h2>
+    </div>
+
+    <label class="search">
+      <span>⌕</span>
+      <input
+        type="search"
+        [(ngModel)]="busqueda"
+        placeholder="Buscar película..."
+        aria-label="Buscar película">
+    </label>
+  </section>
+
+  <section class="summary">
+    <article>
+      <span>PELÍCULAS</span>
+      <b>{{ peliculas.length }}</b>
+    </article>
+    <article>
+      <span>CALIFICACIÓN PROMEDIO</span>
+      <b>⭐ {{ promedioCalificacion | number:'1.1-1' }}</b>
+    </article>
+    <article>
+      <span>RESULTADOS</span>
+      <b>{{ peliculasFiltradas.length }}</b>
+    </article>
+  </section>
+
+  <section class="grid" *ngIf="peliculasFiltradas.length > 0; else vacio">
+    <article
+      class="movie-card"
+      *ngFor="let pelicula of peliculasFiltradas; let i = index"
+      [style.animation-delay]="(i * 70) + 'ms'">
+
+      <div class="poster">
+        <span>🎬</span>
+        <small>{{ pelicula.anio }}</small>
+      </div>
+
+      <div class="content">
+        <div class="genre">{{ pelicula.genero }}</div>
+        <h3>{{ pelicula.titulo }}</h3>
+        <div class="rating">
+          ★ {{ pelicula.calificacion | number:'1.1-1' }}
+          <span>/ 10</span>
+        </div>
+
+        <div class="actions">
+          <button class="edit" type="button" (click)="abrirEdicion(pelicula)">
+            ✎ Editar
+          </button>
+          <button class="delete" type="button" (click)="eliminar(pelicula.id)">
+            🗑 Eliminar
+          </button>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <ng-template #vacio>
+    <div class="empty">
+      <div class="empty-icon">🎞️</div>
+      <strong>No se encontraron películas</strong>
+      <p>Prueba con otro título, género o año.</p>
+    </div>
+  </ng-template>
+</main>
+
+<div
+  class="overlay"
+  *ngIf="mostrandoFormulario"
+  (click)="cerrar()">
+
+  <form
+    class="modal"
+    (ngSubmit)="guardar()"
+    (click)="$event.stopPropagation()">
+
+    <button class="x" type="button" (click)="cerrar()" aria-label="Cerrar">×</button>
+
+    <span class="tag purple">GESTIÓN DE PELÍCULAS</span>
+    <h2>{{ editando ? 'Editar película' : 'Agregar película' }}</h2>
+    <p class="modal-subtitle">Completa los datos del catálogo.</p>
+
+    <label>
+      Título
+      <input
+        name="titulo"
+        [(ngModel)]="formulario.titulo"
+        placeholder="Ej. Interestelar"
+        required>
+    </label>
+
+    <div class="row">
+      <label>
+        Género
+        <select name="genero" [(ngModel)]="formulario.genero">
+          <option>Acción</option>
+          <option>Aventura</option>
+          <option>Animación</option>
+          <option>Comedia</option>
+          <option>Drama</option>
+          <option>Ciencia ficción</option>
+          <option>Terror</option>
+        </select>
+      </label>
+
+      <label>
+        Año
+        <input
+          name="anio"
+          type="number"
+          min="1900"
+          max="2100"
+          [(ngModel)]="formulario.anio">
+      </label>
+    </div>
+
+    <label>
+      Calificación
+      <input
+        name="calificacion"
+        type="number"
+        min="0"
+        max="10"
+        step="0.1"
+        [(ngModel)]="formulario.calificacion">
+    </label>
+
+    <div class="modal-actions">
+      <button type="button" class="cancel" (click)="cerrar()">Cancelar</button>
+      <button type="submit" class="save">
+        ✓ {{ editando ? 'Guardar cambios' : 'Agregar película' }}
+      </button>
+    </div>
+  </form>
+</div>

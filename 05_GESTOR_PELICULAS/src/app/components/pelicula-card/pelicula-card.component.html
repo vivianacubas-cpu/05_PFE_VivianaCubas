@@ -1,0 +1,14 @@
+<article class="tarjeta" [class.completado]="pelicula.completado">
+    <span class="icono">🌱</span>
+    <h3>{{ pelicula.nombre }}</h3>
+    <p> Categoria: {{ pelicula.categoria }}</p>
+    @if ( pelicula.completado){
+    <span class="estado">
+        Completado
+    </span>
+    } @else {
+    <span class="pediente">
+        Pediente
+    </span>
+    }
+</article>

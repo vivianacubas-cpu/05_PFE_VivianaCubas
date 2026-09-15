@@ -1,0 +1,27 @@
+.tarjeta {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+}
+.tarjeta.completado {
+    background-color: #d1fae5;
+    border-left: 5px solid #10b981;
+}
+.icono{
+    font-size: 24px;
+    margin-right: 10px;
+}
+.tarjeta h3 {
+    margin: 0;
+    color: #333;
+}
+
+.estado{  
+    color:#10b981;
+    font-weight: bold;
+}
+.pendiente{
+    color:#f59e0b;
+    font-weight: bold;
+}
