@@ -1,0 +1,192 @@
+<main>
+  <header class="topbar">
+    <a class="brand" href="#" (click)="$event.preventDefault(); volverInicio()">
+      <span class="brand-mark">📚</span>
+      <span>Biblioteca <b>Digital</b></span>
+    </a>
+    <nav>
+      <a href="#catalogo">Libros</a>
+      <a href="#arquitectura">Arquitectura</a>
+      <button type="button" class="nav-button" (click)="abrirFormulario()">Registrar</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><span></span> RETO · CONSUMIENDO UNA API REST</div>
+      <h1>Tu biblioteca,<br><strong>ahora digital.</strong></h1>
+      <p>Consulta libros desde una API REST y registra nuevos títulos desde una interfaz moderna hecha con Angular.</p>
+      <div class="hero-actions">
+        <button class="btn btn-light" type="button" (click)="buscarLibros()" [disabled]="cargando">
+          {{ cargando ? 'Consultando...' : 'Explorar libros' }} <span>→</span>
+        </button>
+        <button class="btn btn-outline" type="button" (click)="abrirFormulario()">
+          + Registrar libro
+        </button>
+      </div>
+      <div class="hero-tags">
+        <span>GET</span><span>POST</span><span>HttpClient</span><span>LibroService</span>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="floating-book book-one">📕</div>
+      <div class="floating-book book-two">📗</div>
+      <div class="floating-book book-three">📘</div>
+      <div class="hero-book">
+        <small>BIBLIOTECA</small>
+        <strong>DIGITAL</strong>
+        <span>ANGULAR · API REST</span>
+        <i>✦</i>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalogo" class="section">
+    <div class="section-title">
+      <div>
+        <span class="kicker">01 · CONSULTA</span>
+        <h2>Explora nuestra colección</h2>
+        <p>Los resultados llegan directamente desde Open Library mediante una petición GET.</p>
+      </div>
+      <span class="count" *ngIf="libros.length">{{ libros.length }} libros</span>
+    </div>
+
+    <div class="quick-search">
+      <button type="button" (click)="buscarRapido('don quijote')">Don Quijote</button>
+      <button type="button" (click)="buscarRapido('harry potter')">Harry Potter</button>
+      <button type="button" (click)="buscarRapido('cien años de soledad')">Cien años de soledad</button>
+      <button type="button" (click)="buscarRapido('the little prince')">The Little Prince</button>
+    </div>
+
+    <div class="search">
+      <span>⌕</span>
+      <input
+        type="text"
+        [(ngModel)]="termino"
+        (keyup.enter)="buscarLibros()"
+        placeholder="Buscar por título, autor o tema..."
+        aria-label="Buscar libros">
+      <button class="btn-search" type="button" (click)="buscarLibros()" [disabled]="cargando">
+        {{ cargando ? '...' : 'Buscar' }}
+      </button>
+    </div>
+
+    <div class="alert success" *ngIf="mensaje">✓ {{ mensaje }}</div>
+    <div class="alert error" *ngIf="error">! {{ error }}</div>
+
+    <div class="loading" *ngIf="cargando">
+      <div class="spinner"></div>
+      <span>Conectando con Open Library...</span>
+    </div>
+
+    <div class="books-grid" *ngIf="!cargando && libros.length">
+      <article class="book-card" *ngFor="let libro of libros; trackBy: trackByLibro">
+        <div class="cover">
+          <img
+            *ngIf="libro.portada && !imagenNoDisponible(libro.id)"
+            [src]="libro.portada"
+            [alt]="'Portada de ' + libro.titulo"
+            (error)="imagenFallida(libro.id)">
+          <div class="cover-fallback" *ngIf="!libro.portada || imagenNoDisponible(libro.id)">
+            <span>LIBRO</span>
+            <strong>📖</strong>
+          </div>
+          <span class="year-badge">{{ libro.anio }}</span>
+        </div>
+        <div class="book-content">
+          <span class="genre">{{ libro.genero }}</span>
+          <h3>{{ libro.titulo }}</h3>
+          <p>{{ libro.autor }}</p>
+          <div class="card-footer">
+            <small>Open Library</small>
+            <span>↗</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="empty" *ngIf="!cargando && !libros.length && !error">
+      <span>📚</span>
+      <h3>No encontramos resultados</h3>
+      <p>Prueba con otro título o autor.</p>
+    </div>
+  </section>
+
+  <section id="arquitectura" class="architecture section">
+    <div class="section-title">
+      <div>
+        <span class="kicker">02 · ARQUITECTURA</span>
+        <h2>¿Cómo funciona?</h2>
+        <p>El componente se comunica con el servicio y este administra las peticiones HTTP.</p>
+      </div>
+    </div>
+    <div class="flow">
+      <div class="flow-card">
+        <span>01</span><b>Componente</b><small>Interfaz y eventos</small>
+      </div>
+      <i>→</i>
+      <div class="flow-card featured">
+        <span>02</span><b>LibroService</b><small>Lógica y datos</small>
+      </div>
+      <i>→</i>
+      <div class="flow-card">
+        <span>03</span><b>HttpClient</b><small>Peticiones HTTP</small>
+      </div>
+      <i>→</i>
+      <div class="flow-card api">
+        <span>04</span><b>REST API</b><small>Open Library</small>
+      </div>
+    </div>
+  </section>
+
+  <section id="formulario" class="register section">
+    <div class="register-banner" *ngIf="!mostrarFormulario">
+      <div>
+        <span class="kicker">03 · REGISTRO</span>
+        <h2>¿Tienes un libro para agregar?</h2>
+        <p>Usa el método POST para registrar un nuevo título.</p>
+      </div>
+      <button class="btn btn-wine" type="button" (click)="abrirFormulario()">+ Nuevo libro</button>
+    </div>
+
+    <form class="register-form" *ngIf="mostrarFormulario" (ngSubmit)="registrarLibro()">
+      <div class="form-heading">
+        <div>
+          <span class="kicker">03 · POST</span>
+          <h2>Registrar nuevo libro</h2>
+        </div>
+        <button type="button" class="close" (click)="cerrarFormulario()">×</button>
+      </div>
+      <div class="form-grid">
+        <label>
+          <span>Título del libro</span>
+          <input name="titulo" [(ngModel)]="nuevoLibro.titulo" required placeholder="Ej. El principito">
+        </label>
+        <label>
+          <span>Autor</span>
+          <input name="autor" [(ngModel)]="nuevoLibro.autor" required placeholder="Ej. Antoine de Saint-Exupéry">
+        </label>
+        <label>
+          <span>Año</span>
+          <input name="anio" type="number" [(ngModel)]="nuevoLibro.anio" required>
+        </label>
+        <label>
+          <span>Género</span>
+          <input name="genero" [(ngModel)]="nuevoLibro.genero" required placeholder="Ej. Literatura">
+        </label>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-cancel" type="button" (click)="cerrarFormulario()">Cancelar</button>
+        <button class="btn btn-wine" type="submit" [disabled]="cargando">
+          {{ cargando ? 'Enviando POST...' : 'Registrar libro →' }}
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-brand">📚 <b>Biblioteca Digital</b></div>
+    <span>Angular · HttpClient · API REST</span>
+    <span>T05 · Reto Front-End</span>
+  </footer>
+</main>
