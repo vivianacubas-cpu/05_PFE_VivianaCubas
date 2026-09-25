@@ -1,0 +1,15 @@
+<article class="autor-card">
+  <div class="autor-avatar">
+    <img [src]="autor.image || 'https://i.pravatar.cc/500?u=' + autor.id" [alt]="'Fotografía de ' + autor.firstName + ' ' + autor.lastName" loading="lazy">
+  </div>
+  <div class="autor-info">
+    <span class="autor-label">AUTOR REGISTRADO</span>
+    <h3>{{ autor.firstName }} {{ autor.lastName }}</h3>
+    <p>{{ autor.email }}</p>
+    <div class="autor-meta"><span>ID #{{ autor.id }}</span><span>{{ autor.company?.title || 'Autor' }}</span></div>
+  </div>
+  <div class="autor-actions">
+    <button type="button" class="btn-edit" (click)="pedirEdicion()">✎ Editar</button>
+    <button type="button" class="btn-delete" (click)="pedirEliminacion()">⌫ Eliminar</button>
+  </div>
+</article>

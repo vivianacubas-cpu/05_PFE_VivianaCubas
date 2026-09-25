@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">COLECCIÓN · ENTIDAD MAESTRA</span>
+      <h1>Historias que viven en cada <em>autor.</em></h1>
+      <p>Una aplicación Angular para consultar, registrar, actualizar y eliminar autores mediante una API REST pública.</p>
+      <div class="hero-actions"><a href="#autores">Ver autores</a><a class="light" href="#registrar">Registrar autor</a></div>
+      <div class="tech"><span>Angular</span><span>HttpClient</span><span>API REST</span><span>CRUD</span></div>
+    </div>
+    <div class="hero-art">
+      <div class="hero-photo"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1000&q=85" alt="Libros y lectura"></div>
+      <div class="book-card"><div class="book-cover">A</div><div><small>ENTIDAD MAESTRA</small><strong>Autores</strong><span>Catálogo dinámico</span></div></div>
+      <div class="quote">“Cada historia empieza con alguien que decide escribirla.”</div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Resumen del catálogo">
+    <article><span>TOTAL</span><strong>{{ totalAutores }}</strong><small>Autores cargados</small></article>
+    <article><span>REGISTROS</span><strong>{{ conCorreo }}</strong><small>Con correo disponible</small></article>
+    <article><span>IMÁGENES</span><strong>{{ conImagen }}</strong><small>Con fotografía</small></article>
+  </section>
+
+  <section class="workspace">
+    <div class="intro"><span>GESTIÓN DE AUTORES · DUMMYJSON</span><h2>Administra tu catálogo</h2><p>El formulario y el listado están separados en componentes para demostrar la comunicación entre padre e hijo y las operaciones CRUD.</p></div>
+    <div class="layout">
+      <app-autor-formulario [autorEditar]="editando" (guardar)="agregarAutor($event)" (cancelar)="cancelarEdicion()"></app-autor-formulario>
+      <section class="results" id="autores">
+        @if (cargando) { <div class="loading"><span class="spinner"></span>Cargando autores...</div> }
+        @if (error) { <div class="error">{{ error }} <button (click)="cargarAutores()">Reintentar</button></div> }
+        @if (mensaje) { <div class="toast">✓ {{ mensaje }}</div> }
+        <app-autor-lista [autores]="autores" (editar)="editarAutor($event)" (eliminar)="eliminarAutor($event)"></app-autor-lista>
+      </section>
+    </div>
+  </section>
+
+  <section class="crud-strip"><div><span>CRUD</span><h2>Cuatro operaciones, un solo control.</h2><p>GET consulta · POST registra · PUT actualiza · DELETE elimina.</p></div><div class="crud-items"><div><b>GET</b><small>Consultar</small></div><div><b>POST</b><small>Registrar</small></div><div><b>PUT</b><small>Actualizar</small></div><div><b>DELETE</b><small>Eliminar</small></div></div></section>
+</main>
+
+<footer>ATELIER DE AUTORES · Angular + HttpClient + API REST pública</footer>

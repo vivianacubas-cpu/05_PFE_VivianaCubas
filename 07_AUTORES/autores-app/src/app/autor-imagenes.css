@@ -1,0 +1,7 @@
+/* Galería visual reutilizable para autores */
+.autor-photo-circle{
+  width:110px;height:110px;border-radius:50%;overflow:hidden;
+  border:5px solid #fff;box-shadow:0 12px 28px rgba(100,45,55,.16);
+  background:#f6e7e9;
+}
+.autor-photo-circle img{width:100%;height:100%;object-fit:cover;display:block}

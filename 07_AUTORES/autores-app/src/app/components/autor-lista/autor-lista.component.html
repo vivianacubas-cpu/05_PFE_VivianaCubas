@@ -1,0 +1,16 @@
+<section class="lista-section">
+  <div class="lista-header">
+    <div><span class="section-kicker">CATÁLOGO · GET</span><h2>Autores registrados</h2><p>Consulta y administra los registros disponibles.</p></div>
+    <span class="contador">{{ autores.length }} registros</span>
+  </div>
+
+  @if (autores.length > 0) {
+    <div class="autores-grid">
+      @for (autor of autores; track autor.id) {
+        <app-autor-card [autor]="autor" (editar)="editar.emit($event)" (eliminar)="eliminar.emit($event)"></app-autor-card>
+      }
+    </div>
+  } @else {
+    <div class="empty-state"><div class="empty-icon">✦</div><h3>No hay autores registrados</h3><p>Agrega el primer autor desde el formulario.</p></div>
+  }
+</section>

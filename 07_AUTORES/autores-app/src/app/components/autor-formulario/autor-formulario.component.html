@@ -1,0 +1,34 @@
+<section class="form-card" id="registrar">
+  <div class="form-icon">✦</div>
+  <div class="form-heading">
+    <span>{{ esEdicion ? 'PUT · ACTUALIZAR' : 'POST · REGISTRAR' }}</span>
+    <h2>{{ esEdicion ? 'Editar autor' : 'Nuevo autor' }}</h2>
+    <p>{{ esEdicion ? 'Actualiza los datos del autor seleccionado.' : 'Completa los datos para agregar un nuevo registro.' }}</p>
+  </div>
+
+  <form (ngSubmit)="guardarAutor()">
+    <div class="form-row">
+      <label>Nombre
+        <input name="firstName" [(ngModel)]="nuevoAutor.firstName" placeholder="Ej. Gabriel" required>
+      </label>
+      <label>Apellido
+        <input name="lastName" [(ngModel)]="nuevoAutor.lastName" placeholder="Ej. García" required>
+      </label>
+    </div>
+
+    <label>Correo electrónico
+      <input name="email" type="email" [(ngModel)]="nuevoAutor.email" placeholder="autor@correo.com" required>
+    </label>
+
+    <label>URL de imagen del autor <span class="optional">opcional</span>
+      <input name="image" type="url" [(ngModel)]="nuevoAutor.image" placeholder="https://...">
+    </label>
+
+    <div class="form-actions">
+      @if (esEdicion) {
+        <button type="button" class="btn-cancel" (click)="cancelarEdicion()">Cancelar</button>
+      }
+      <button type="submit">{{ esEdicion ? 'Guardar cambios' : '＋ Registrar autor' }}</button>
+    </div>
+  </form>
+</section>
